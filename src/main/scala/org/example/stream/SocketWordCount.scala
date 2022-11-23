@@ -1,11 +1,25 @@
 package org.example.stream
 
-import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, createTypeInformation}
+import org.apache.flink.streaming.api.windowing.assigners.TumblingProcessingTimeWindows
+import org.apache.flink.streaming.api.windowing.time.Time
 
 object SocketWordCount {
 
   def runTask(env: StreamExecutionEnvironment): Unit = {
-    
+    val host = "localhost"
+    val port = 9999
+
+    val text = env.socketTextStream(host, port)
+    val count = text.flatMap(w => w.split("\\W+"))
+      .map((_, 1))
+      .keyBy(_._1)
+      .window(TumblingProcessingTimeWindows.of(Time.seconds(5)))
+      .sum("count")
+
+    count.print()
+
+    env.execute("Socket Word Count")
   }
 
 }

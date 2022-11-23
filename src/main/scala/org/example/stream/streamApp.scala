@@ -7,7 +7,8 @@ object streamApp {
   def run(taskName: String): Unit ={
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     taskName match {
-      case "WordCount" =>
+      case "WordCount" => SocketWordCount.runTask(env)
+      case _ => throw new IllegalArgumentException("unknown stream task")
     }
   }
 
