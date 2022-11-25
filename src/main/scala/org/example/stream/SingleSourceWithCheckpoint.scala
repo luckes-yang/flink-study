@@ -16,9 +16,9 @@ import scala.collection.JavaConverters._
 object SingleSourceWithCheckpoint {
 
   def runTask(env: StreamExecutionEnvironment): Unit = {
-    //    val checkpoint = "file:///opt/flink/checkpoint/SingleSourceWithCheckpoint"
-    //    env.getCheckpointConfig.setCheckpointStorage(checkpoint)
-    //    env.enableCheckpointing(60000L)
+    val checkpoint = "file:///opt/flink/checkpoint/SingleSourceWithCheckpoint"
+    env.getCheckpointConfig.setCheckpointStorage(checkpoint)
+    env.enableCheckpointing(60000L)
     val stream = env.addSource(new SingleSource())
     stream.addSink(new SingleSink())
     env.execute("single source with checkpoint")
@@ -69,7 +69,7 @@ object SingleSourceWithCheckpoint {
   }
 
   class SingleSink extends SinkFunction[Event] {
-    override def invoke(value: Event, context:SinkFunction.Context): Unit = {
+    override def invoke(value: Event, context: SinkFunction.Context): Unit = {
       println(value)
     }
   }
