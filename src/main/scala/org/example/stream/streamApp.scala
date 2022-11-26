@@ -10,6 +10,7 @@ object streamApp {
       case "WordCount" => SocketWordCount.runTask(env)
       case "SingleSource" => CustomSingleSource.runTask(env)
       case "SingleSourceWithCheckpoint" => SingleSourceWithCheckpoint.runTask(env)
+      case "ParallelSource" => ParallelSource.runTask(env)
       case _ => throw new IllegalArgumentException("unknown stream task")
     }
   }
