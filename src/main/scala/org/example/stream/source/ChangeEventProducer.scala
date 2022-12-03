@@ -35,12 +35,12 @@ class ChangeEventProducer(queue: util.Queue[ChangeEvent], subTask: Int, index: I
     this.isRunning = false
   }
 
-  def pause(): Unit ={
+  def pause(): Unit = {
     LOG.info("暂停数据生产者")
     this.sleepTime = Long.MaxValue
   }
 
-  def wakeup(): Unit ={
+  def wakeup(): Unit = {
     LOG.info("恢复数据生产者")
     this.sleepTime = this.defaultTime
   }
