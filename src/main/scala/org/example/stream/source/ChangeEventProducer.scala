@@ -23,7 +23,7 @@ class ChangeEventProducer(queue: util.Queue[ChangeEvent], subTask: Int, index: I
     LOG.info("启动数据生产者：{}, 开始位置：{}", subTask, index)
     var i = index
     while (isRunning) {
-      val event = ChangeEvent(subTask, index, Timestamp.valueOf(LocalDateTime.now()))
+      val event = ChangeEvent(subTask, i, Timestamp.valueOf(LocalDateTime.now()))
       queue.add(event)
       i += 1
       Thread.sleep(sleepTime)

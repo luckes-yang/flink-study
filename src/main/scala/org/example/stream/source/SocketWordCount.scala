@@ -1,4 +1,4 @@
-package org.example.stream
+package org.example.stream.source
 
 import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, createTypeInformation}
 import org.apache.flink.streaming.api.windowing.assigners.TumblingProcessingTimeWindows
@@ -6,6 +6,12 @@ import org.apache.flink.streaming.api.windowing.time.Time
 
 object SocketWordCount {
 
+  /**
+   * 使用socket流的方式实现word count
+   * socket 启动： nc -lk 9998 -v
+   * 部分linux主机需要使用 ncat -lk 9998 -v
+   * @param env streaming 环境上下文
+   */
   def runTask(env: StreamExecutionEnvironment): Unit = {
     val host = "192.168.1.200"
     val port = 9998
